@@ -1,0 +1,30 @@
+﻿@model LoginMvcWebApp.Models.User
+@{
+    ViewBag.Title = "Login";
+}
+<div class="row">
+    <div class="col-md-8 col-md-push-2">
+        @Html.ValidationSummary(true, "Login failed")
+        <form role="form" method="post" class="form-horizontal">
+            <div class="form-group">
+                <label class="col-md-2 control-label">
+                    User:
+                </label>
+                <div class="col-md-6">
+                    @Html.TextBoxFor(m => m.Username, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-2 control-label">Password:</label>
+                <div class="col-md-6">
+                    @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-6 col-md-push-2">
+                    <button type="submit" class="btn btn-primary">Login</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
