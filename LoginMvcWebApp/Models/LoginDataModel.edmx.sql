@@ -2,8 +2,8 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 09/12/2014 23:59:35
--- Generated from EDMX file: c:\users\na\documents\visual studio 2013\Projects\LoginMvcWebApp\LoginMvcWebApp\Models\LoginDataModel.edmx
+-- Date Created: 09/13/2014 12:49:29
+-- Generated from EDMX file: C:\Users\NA\Source\Repos\LoginMvcWebApp\LoginMvcWebApp\Models\LoginDataModel.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
@@ -17,11 +17,26 @@ GO
 -- Dropping existing FOREIGN KEY constraints
 -- --------------------------------------------------
 
+IF OBJECT_ID(N'[dbo].[FK_UserRole_User]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[UserRole] DROP CONSTRAINT [FK_UserRole_User];
+GO
+IF OBJECT_ID(N'[dbo].[FK_UserRole_Role]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[UserRole] DROP CONSTRAINT [FK_UserRole_Role];
+GO
 
 -- --------------------------------------------------
 -- Dropping existing tables
 -- --------------------------------------------------
 
+IF OBJECT_ID(N'[dbo].[Users]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Users];
+GO
+IF OBJECT_ID(N'[dbo].[Roles]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Roles];
+GO
+IF OBJECT_ID(N'[dbo].[UserRole]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[UserRole];
+GO
 
 -- --------------------------------------------------
 -- Creating all tables
@@ -94,6 +109,7 @@ ADD CONSTRAINT [FK_UserRole_Role]
     REFERENCES [dbo].[Roles]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_UserRole_Role'
 CREATE INDEX [IX_FK_UserRole_Role]

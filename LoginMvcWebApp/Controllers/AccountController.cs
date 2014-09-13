@@ -12,7 +12,7 @@ namespace LoginMvcWebApp
     {
         //
         // GET: /Login/
-        [Authorize]
+        [Authorize(Roles = "Admin, IT")]
         public ActionResult Index()
         {
             ViewBag.IsAdmin = Request.RequestContext.HttpContext.User.IsInRole("Admin");
@@ -66,6 +66,11 @@ namespace LoginMvcWebApp
         public ActionResult Delete(int id)
         {
             return RedirectToAction("Index");
+        }
+
+        public ActionResult Unauthorized()
+        {
+            return View();
         }
 	}
 }
