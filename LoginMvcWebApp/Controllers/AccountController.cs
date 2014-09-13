@@ -24,7 +24,12 @@ namespace LoginMvcWebApp
 
         public ActionResult Login()
         {
-            return View(new User());
+            using (LoginDataModelContainer db = new LoginDataModelContainer())
+            {
+                User user = new User();
+                ViewBag.Roles = db.Roles.ToList();
+                return View(user);
+            }
         }
 
         [HttpPost]
@@ -34,11 +39,20 @@ namespace LoginMvcWebApp
 
             using (LoginDataModelContainer db = new LoginDataModelContainer())
             {
-                var dbUser = db.Users.Where(x => x.Username == user.Username && x.Password == passwordHash).SingleOrDefault();
+                var dbUser = db.Users.SingleOrDefault(x => x.Username == user.Username && x.Password == passwordHash);
                 if (dbUser != null)
                 {
                     FormsAuthentication.SetAuthCookie(user.Username, true);
+                    
+
+                    dbUser.Roles.Clear();
+                    dbUser.Roles = (from role in db.Roles
+                                    join userRole in user.SelectedRoles on role.Id equals userRole
+                                    select role).ToList();
+                    db.SaveChanges();
                     return RedirectToAction("Index");
+
+
                 }
             }
 
@@ -67,5 +81,10 @@ namespace LoginMvcWebApp
         {
             return RedirectToAction("Index");
         }
-	}
+
+        public ActionResult Unauthorized()
+        {
+            return View();
+        }
+    }
 }

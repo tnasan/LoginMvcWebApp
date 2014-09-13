@@ -1,4 +1,6 @@
-﻿@model LoginMvcWebApp.Models.User
+﻿@using MvcCheckBoxList.Model
+@using LoginMvcWebApp.Models
+@model LoginMvcWebApp.Models.User
 @{
     ViewBag.Title = "Login";
 }
@@ -23,6 +25,19 @@
             <div class="form-group">
                 <div class="col-md-6 col-md-push-2">
                     <button type="submit" class="btn btn-primary">Login</button>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-6 col-md-push-2">
+                    @{
+                        List<Role> Roles = ViewBag.Roles;
+                    }
+                    @Html.CheckBoxListFor(m=>m.SelectedRoles,
+                    m=> Roles,
+                    e=>e.Id,
+                    e=>e.Name,
+                    m => null,
+                    Position.Vertical)
                 </div>
             </div>
         </form>

@@ -26,5 +26,7 @@ namespace LoginMvcWebApp.Models
         public string Password { get; set; }
     
         public virtual ICollection<Role> Roles { get; set; }
+
+        public List<int> SelectedRoles { get; set; }
     }
 }
